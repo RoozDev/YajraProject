@@ -22,7 +22,11 @@ Route::controller(StudentController::class)->group(function(){
     Route::get('/students','index')->name('students');
     Route::get('students/list','getStudents')->name('student.index');
 
-
+//  student insert routes
     Route::get('students/create','create')->name('student.create');
     Route::post('students/store','store')->name('student.store');
+
+//  student edit routes
+    Route::get('students/create','create')->name('student.edit');
+    Route::get('students/create','create')->name('student.update');
 });
