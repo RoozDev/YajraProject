@@ -45,9 +45,13 @@ class StudentController extends Controller
 
 
     }
+    public function welcome(){
+        return view('welcome');
+    }
+
     public function index()
     {
-        return view('welcome');
+        return view('student.datatable');
     }
 
     public function getStudents(Request $request)
