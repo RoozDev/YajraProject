@@ -41,7 +41,13 @@ class StudentController extends Controller
         $student->phone = $request['phone'];
         $student->dob = Carbon::create( $request['dob'],'Asia/Tehran')->format('Y-m-d');
         $student->save();
-        return to_route('students');
+        $notification =
+            [
+                'message' => 'کابر با موفقیت دخیره شد',
+                'alert-type' => 'success'
+
+            ];
+        return to_route('students')->with($notification);
 
 
     }
@@ -61,21 +67,45 @@ class StudentController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
+                    $actionBtn =
+       '<a href=   "' . route('student.edit',$row['id']) . '" class="edit btn btn-success btn-sm">Edit</a>
+       <a href="'. route('student.delete',$row['id']) . '" class="delete btn btn-danger btn-sm" id="delete">Delete</a>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
                 ->make(true);
         }
-    }
-
-    public function edit(){
-        return view();
-    }
-    public function update(){
 
     }
-    public function destroy(){
 
+    public function edit(string $id){
+        $student = Student::query()->where('id',$id)->first();
+        return view('student.edit',compact('student'));
+    }
+    public function update(string $id, Request $request){
+        $student = Student::query()->where('id',$id)->first();
+        $student->name = $request['name'];
+        $student->email = $request['email'];
+        $student->username = $request['username'];
+        $student->phone = $request['phone'];
+        $student->dob = Carbon::create( $request['dob'],'Asia/Tehran')->format('Y-m-d');
+        $student->save();
+        $notification =
+            [
+                'message' => 'تغییرات با موفقیت ثبت شد',
+                'alert-type' => 'success'
+
+            ];
+        return to_route('students')->with($notification);
+    }
+    public function destroy($id){
+        $notification =
+            [
+                'message' => 'کاربر با موفقیت حذف شد',
+                'alert-type' => 'success'
+
+            ];
+        $student = Student::query()->findOrFail($id)->delete();
+        return to_route('students')->with($notification);
     }
 }
