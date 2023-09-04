@@ -47,6 +47,12 @@
         var table = $('.yajra-datatable').DataTable({
             processing: true,
             serverSide: true,
+            "language": {
+                "paginate": {
+                    "previous": "قبلی",
+                    "next": "بعدی",
+                }
+            },
             ajax: "{{ route('student.index') }}",
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
