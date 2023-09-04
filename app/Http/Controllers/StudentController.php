@@ -6,6 +6,7 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Yajra\DataTables\DataTables;
+use Hekmatinasser\Verta\Verta;
 
 class StudentController extends Controller
 {
@@ -65,10 +66,13 @@ class StudentController extends Controller
         if ($request->ajax()) {
             $data = Student::latest()->get();
             return Datatables::of($data)
+                ->editColumn('dob',function ($row){
+                    return Verta($row['dob'],'Asia/Tehran')->format('Y/m/d');
+                })
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
                     $actionBtn =
-       '<a href=   "' . route('student.edit',$row['id']) . '" class="edit btn btn-success btn-sm">Edit</a>
+       '<button type="button" class="btn btn-primary editbtn btn-sm" value="'. value($row['id']) .'">Edit </button>
        <a href="'. route('student.delete',$row['id']) . '" class="delete btn btn-danger btn-sm" id="delete">Delete</a>';
                     return $actionBtn;
                 })
@@ -78,12 +82,20 @@ class StudentController extends Controller
 
     }
 
+public function EditStudentModal(string $id){
+    try {
+        $student = Student::query()->find($id);
+        return response()->json(['status' => 200, 'student' => $student]);
+    } catch (\Exception $e) {
+        return response()->json(['status' => 500, 'error' => $e->getMessage()], 500);
+    }
+}
     public function edit(string $id){
         $student = Student::query()->where('id',$id)->first();
         return view('student.edit',compact('student'));
     }
-    public function update(string $id, Request $request){
-        $student = Student::query()->where('id',$id)->first();
+    public function update( Request $request){
+        $student = Student::query()->where('id',$request['student_id'])->first();
         $student->name = $request['name'];
         $student->email = $request['email'];
         $student->username = $request['username'];
@@ -99,13 +111,27 @@ class StudentController extends Controller
         return to_route('students')->with($notification);
     }
     public function destroy($id){
-        $notification =
-            [
-                'message' => 'کاربر با موفقیت حذف شد',
-                'alert-type' => 'success'
 
-            ];
-        $student = Student::query()->findOrFail($id)->delete();
-        return to_route('students')->with($notification);
+        $student = Student::query()->findOrFail($id);
+        if ($student){
+            $student->delete();
+            $notification =
+                [
+                    'message' => 'کاربر با موفقیت حذف شد',
+                    'alert-type' => 'success'
+
+                ];
+            return to_route('students')->with($notification);
+        }else{
+            $notification =
+                [
+                    'message' => 'عملیات با موفقیت صورت نگرفت!',
+                    'alert-type' => 'danger'
+
+                ];
+            return to_route('students')->with($notification);
+        }
+
+
     }
 }

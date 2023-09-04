@@ -29,13 +29,14 @@ Route::middleware('auth')->group(function () {
 Route::controller(StudentController::class)->group(function (){
     Route::get('/','welcome');
     Route::get('/students','index')->name('students');
+    Route::get('/students/{id}','EditStudentModal')->name('students.modal.edit');
     Route::get('/student','getStudents')->name('student.index');
 
     Route::get('/student/create','create')->name('student.create');
     Route::post('/student/store','store')->name('student.store');
 
     Route::get('/student/edit/{id}','edit')->name('student.edit');
-    Route::post('/student/update/{id}','update')->name('student.update');
+    Route::post('/student/update','update')->name('student.update');
 
     Route::get('/student/delete/{id}','destroy')->name('student.delete');
 

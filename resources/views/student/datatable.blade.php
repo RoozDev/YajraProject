@@ -15,8 +15,13 @@
 </head>
 <body>
 
-<div class="container mt-5">
-    <h2 class="mb-4">Laravel 7|8 Yajra Datatables Example</h2>
+{{-- create modal --}}
+@include('student.includes.create_student_modal')
+
+{{--  edit modal --}}
+@include('student.includes.edit_student_modal')
+
+
     <table class="table table-bordered yajra-datatable">
         <thead>
         <tr>
@@ -40,92 +45,47 @@
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+{{--yajra datatable --}}
+@include('student.includes.yajra_datatable')
 
-<script type="text/javascript">
-    $(function () {
 
-        var table = $('.yajra-datatable').DataTable({
-            processing: true,
-            serverSide: true,
-            "language": {
-                "paginate": {
-                    "previous": "قبلی",
-                    "next": "بعدی",
-                }
-            },
-            ajax: "{{ route('student.index') }}",
-            columns: [
-                {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                {data: 'name', name: 'name'},
-                {data: 'email', name: 'email'},
-                {data: 'username', name: 'username'},
-                {data: 'phone', name: 'phone'},
-                {data: 'dob', name: 'dob'},
-                {
-                    data: 'action',
-                    name: 'action',
-                    orderable: true,
-                    searchable: true
-                },
-            ]
-        });
-
-    });
-</script>
 {{-- toaster js --}}
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+@include('student.includes.toastr_alert_message')
+
+
+{{-- delete sweet alert--}}
+@include('student.includes.sweet_alert_delete')
+
+{{-- edir modal script--}}
+
 <script>
-    @if(Session::has('message'))
-    var type = "{{ Session::get('alert-type','success') }}"
-    switch(type){
-        case 'info':
-            toastr.info(" {{ Session::get('message') }} ");
-            break;
-
-        case 'success':
-            toastr.success(" {{ Session::get('message') }} ");
-            break;
-
-        case 'warning':
-            toastr.warning(" {{ Session::get('message') }} ");
-            break;
-
-        case 'error':
-            toastr.error(" {{ Session::get('message') }} ");
-            break;
-    }
-    @endif
-</script>
-<script>
-    $(function(){
-        $(document).on('click','#delete',function(e){
-            e.preventDefault();
-            var link = $(this).attr("href");
-
-
-            Swal.fire({
-                title: 'مطمينی ؟',
-                text: "اطلاعات پاک شود ؟",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                cancelButtonText: 'خیر',
-                confirmButtonText: 'بله، پاک شود'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = link
-                    Swal.fire(
-                        'Deleted!',
-                        'اطلاعات شما با موفقیت پاک شد.',
-                        'success'
-                    )
+    $(document).ready(function (){
+        $(document).on('click','.editbtn',function (){
+            let student_id = $(this).val();
+            $('#editModal').modal('show');
+            $.ajax({
+                type: 'GET',
+                url: "/students/"+student_id,
+                success: function (response){
+                    // Check if response.student exists before accessing properties
+                    if (response && response.student) {
+                        $('#student_id').val(student_id);
+                        $('#name').val(response.student.name);
+                        $('#email').val(response.student.email);
+                        $('#username').val(response.student.username);
+                        $('#phone').val(response.student.phone);
+                        $('#dob').val(response.student.dob);
+                    } else {
+                        // Handle invalid or missing response data
+                        console.error("Invalid or missing student data in the response.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    // Handle AJAX errors here
+                    console.error("AJAX Error:", status, error);
                 }
-            })
-
-
+            });
         });
-
     });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
