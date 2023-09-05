@@ -7,6 +7,14 @@ export default {
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
+        "./resources/**/*.blade.php",
+        "./resources/**/**/*.blade.php",
+        "./resources/**/*.js",
+        "./resources/**/*.vue",
+        "./resources/assets/css/font.css",
+        "./resources/assets/font/vazir_font/*.ttf",
+        "./resources/assets/font/vazir_font/*.woff",
+        "./resources/assets/font/vazir_font/*.woff2",
     ],
 
     theme: {
