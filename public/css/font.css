@@ -1,0 +1,20 @@
+@font-face {
+    font-family: 'Vazir';
+    font-style: normal;
+    font-weight: 300;
+    src: url('../../resources/assets/font/vazir-font-v16.1.0/Vazir.ttf'),
+         url('../../resources/assets/font/vazir-font-v16.1.0/Vazir.woff') format('woff'),
+         url('../../resources/assets/font/vazir-font-v16.1.0/Vazir.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'VazirB';
+    font-style: normal;
+    font-weight: Bold;
+    src: url('../../resources/assets/font/vazir-font-v16.1.0/Vazir-Bold.ttf'),
+         url('../../resources/assets/font/vazir-font-v16.1.0/Vazir-Bold.woff') format('woff'),
+         url('../../resources/assets/font/vazir-font-v16.1.0/Vazir-Bold.woff2') format('woff2');
+}
+body
+{
+    font-family: Vazir,sans-serif;
+}
