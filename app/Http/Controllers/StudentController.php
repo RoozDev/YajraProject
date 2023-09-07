@@ -58,6 +58,7 @@ class StudentController extends Controller
 
     public function index()
     {
+
         return view('student.datatable');
     }
 
@@ -78,8 +79,18 @@ class StudentController extends Controller
                 })
                 ->rawColumns(['action'])
                 ->make(true);
-        }
 
+        }
+        return to_route('students');
+
+    }
+    public function html()
+    {
+        $this->builder()
+            ->columns($this->getColumns())
+            ->parameters([
+                'buttons' => ['postExcel', 'postCsv', 'postPdf'],
+            ]);
     }
 
 public function EditStudentModal(string $id){
@@ -134,4 +145,5 @@ public function EditStudentModal(string $id){
 
 
     }
+
 }

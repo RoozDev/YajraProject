@@ -39,6 +39,7 @@ Route::controller(StudentController::class)->group(function (){
     Route::post('/student/update','update')->name('student.update');
 
     Route::get('/student/delete/{id}','destroy')->name('student.delete');
+    Route::post('/students/export', 'index');
 
 });
 require __DIR__.'/auth.php';
