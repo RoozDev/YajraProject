@@ -30,6 +30,7 @@ Route::controller(StudentController::class)->group(function (){
     Route::get('/','welcome');
     Route::get('/students','index')->name('students');
     Route::get('/students/{id}','EditStudentModal')->name('students.modal.edit');
+    Route::get('/students/show/{id}','ShowStudentModal')->name('students.modal.show');
     Route::get('/student','getStudents')->name('student.index');
 
     Route::get('/student/create','create')->name('student.create');

@@ -74,6 +74,7 @@ class StudentController extends Controller
                 ->addColumn('action', function($row){
                     $actionBtn =
        '<button type="button" class="btn btn-primary editbtn btn-sm" value="'. value($row['id']) .'">Edit </button>
+        <button type="button" class="btn btn-warning showbtn btn-sm" value="'. value($row['id']) .'">Show </button>
        <a href="'. route('student.delete',$row['id']) . '" class="delete btn btn-danger btn-sm" id="delete">Delete</a>';
                     return $actionBtn;
                 })
@@ -101,6 +102,22 @@ public function EditStudentModal(string $id){
         return response()->json(['status' => 500, 'error' => $e->getMessage()], 500);
     }
 }
+
+    public function ShowStudentModal(string $id){
+
+        try {
+            // Eager load the 'profile' relationship
+            $student = Student::with('profile')->find($id);
+
+            if ($student) {
+                return response()->json(['status' => 200, 'student' => $student]);
+            } else {
+                return response()->json(['status' => 404, 'error' => 'Student not found'], 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['status' => 500, 'error' => $e->getMessage()], 500);
+        }
+    }
     public function edit(string $id){
         $student = Student::query()->where('id',$id)->first();
         return view('student.edit',compact('student'));
@@ -145,5 +162,4 @@ public function EditStudentModal(string $id){
 
 
     }
-
 }

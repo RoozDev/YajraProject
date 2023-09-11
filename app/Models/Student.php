@@ -8,11 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'name',
-        'email',
-        'username',
-        'phone',
-        'dob',
-    ];
+    protected $guarded =[];
+    public function profile(){
+        return $this->hasOne(Profile::class,'student_id','id');
+    }
 }

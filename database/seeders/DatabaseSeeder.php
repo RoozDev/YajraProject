@@ -20,16 +20,16 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        $faker = Faker::create();
-        $gender = $faker->randomElement(['male', 'female']);
-        foreach (range(1,200) as $index) {
-            DB::table('students')->insert([
-                'name' => $faker->name($gender),
-                'email' => $faker->email,
-                'username' => $faker->username,
-                'phone' => $faker->phoneNumber,
-                'dob' => $faker->date($format = 'Y-m-d', $max = 'now')
-            ]);
-        }
+//        $faker = Faker::create();
+//        $gender = $faker->randomElement(['male', 'female']);
+//        foreach (range(1,200) as $index) {
+//            DB::table('students')->insert([
+//                'name' => $faker->name($gender),
+//                'email' => $faker->email,
+//                'username' => $faker->username,
+//                'phone' => $faker->phoneNumber,
+//                'dob' => $faker->date($format = 'Y-m-d', $max = 'now')
+//            ]);
+//        }
     }
 }
