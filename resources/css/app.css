@@ -1,27 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@font-face {
-    font-family: 'Vazir';
-    font-style: normal;
-    font-weight: 300;
-    src: url('../assets/font/vazir_font/Vazir.ttf'),
-    url('../assets/font/vazir_font/Vazir.woff') format('woff'),
-    url('../assets/font/vazir_font/Vazir.woff2') format('woff2');
-}
-@font-face {
-    font-family: 'VazirB';
-    font-style: normal;
-    font-weight: Bold;
-    src: url('../assets/font/vazir_font/Vazir-Bold.ttf'),
-    url('../assets/font/vazir_font/Vazir-Bold.woff') format('woff'),
-    url('../assets/font/vazir_font/Vazir-Bold.woff2') format('woff2');
-}
-#vazirFont
-{
-    font-family: Vazir;
-}
-*{
-    font-family: Vazir;
-}
-

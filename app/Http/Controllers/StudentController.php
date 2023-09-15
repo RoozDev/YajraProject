@@ -82,6 +82,7 @@ class StudentController extends Controller
                 ->make(true);
 
         }
+
         return to_route('students');
 
     }

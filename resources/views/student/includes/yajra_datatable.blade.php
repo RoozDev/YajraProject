@@ -1,3 +1,4 @@
+
 <script type="text/javascript">
     $(function () {
 
@@ -21,7 +22,43 @@
                 }
             },
             ajax: "{{ route('student.index') }}",
+            dom: 'Blfrtip',
+            buttons: [
+                {
+                    extend: 'pdf',
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5], // Column index which needs to export
+                        encoding: 'utf8', // Specify UTF-8 encoding
+                        customize: function (doc) {
+                            // Embed a custom Persian font for the PDF
+                            doc.content[1].table.widths = ['*', '*', '*', '*', '*', '*'];
+                            doc.content[1].table.body.forEach(function (row) {
+                                row.forEach(function (cell) {
+                                    cell.font = 'Tajik Nastaliq';
+                                });
+                            });
 
+                            // Set the direction to RTL
+                            doc.content[1].alignment = 'right'; // Right-to-left alignment
+                            doc.defaultStyle.alignment = 'right';
+
+                            // You can also specify other RTL-related settings as needed
+                            // For example, margin-right and margin-left adjustments
+                            // doc.pageMargins = [20, 20, 20, 20]; // Example margin adjustments
+                        }
+                    },
+
+                },
+                {
+                    extend: 'csv',
+                    exportOptions: {
+                        columns: [0,5] // Column index which needs to export
+                    }
+                },
+                {
+                    extend: 'excel',
+                }
+            ],
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'name', name: 'name'},
@@ -40,3 +77,4 @@
 
     });
 </script>
+

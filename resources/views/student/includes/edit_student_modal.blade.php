@@ -48,6 +48,11 @@
                                    placeholder="شماره تماس موبایل / خانه خود را وارد کنید...">
 
                         </div>
+                        <date-picker
+                            v-model="date"
+                            format="jYYYY jMMMM jDD"
+                        />
+
                         <div class="col-md-12">
                             <label for="dob" class="form-label">تاریخ تولد</label>
                             <input name="dob"
