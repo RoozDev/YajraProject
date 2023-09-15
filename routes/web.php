@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -34,5 +35,21 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+Route::controller(StudentController::class)->group(function (){
+    Route::get('/','welcome');
+    Route::get('/students','index')->name('students');
+    Route::get('/students/{id}','EditStudentModal')->name('students.modal.edit');
+    Route::get('/student','getStudents')->name('student.index');
 
+    Route::get('/student/create','create')->name('student.create');
+    Route::post('/student/store','store')->name('student.store');
+
+    Route::get('/student/edit/{id}','edit')->name('student.edit');
+    Route::post('/student/update','update')->name('student.update');
+
+    Route::get('/student/show/{id}','ShowStudentModal')->name('student.show');
+
+    Route::get('/student/delete/{id}','destroy')->name('student.delete');
+
+});
 require __DIR__.'/auth.php';

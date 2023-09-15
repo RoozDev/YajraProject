@@ -10,7 +10,7 @@
             setTimeout(function () {
                 $.ajax({
                     type: 'GET',
-                    url: "/students/show/" + student_id,
+                    url: "/student/show/" + student_id,
                     success: function (response) {
 
                         if (response && response.student) {
