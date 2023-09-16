@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
+use App\Exports\StudentExport;
+use App\Imports\StudentImport;
 use Hekmatinasser\Verta\Verta;
 
 class StudentController extends Controller
@@ -162,5 +166,18 @@ public function EditStudentModal(string $id){
         }
 
 
+    }
+    public function importt(){
+        return view('student.import');
+    }
+    public function export()
+    {
+        return Excel::download(new StudentExport, 'students.xlsx');
+    }
+    public function import(Request $request)
+    {
+        Excel::import(new StudentImport,$request->file('import_file'));
+
+        return redirect('/')->with('success', 'All good!');
     }
 }

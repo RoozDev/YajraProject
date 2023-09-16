@@ -25,6 +25,10 @@
 </head>
 <body>
 
+
+
+
+
 {{-- create modal --}}
 @include('student.includes.create_student_modal')
 
@@ -38,7 +42,8 @@
 @include('student.includes.show_student_modal')
 {{-- show modal script --}}
 @include('student.includes.show_modal_script')
-
+<a href="{{ route('student.importt') }}" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">Import</a>
+<a href="{{ route('student.export') }}" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">Download</a>
     <table id="vazirFont" class="table table-bordered yajra-datatable">
         <thead>
         <tr>

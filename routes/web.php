@@ -51,5 +51,8 @@ Route::controller(StudentController::class)->group(function (){
 
     Route::get('/student/delete/{id}','destroy')->name('student.delete');
 
+    Route::get('/student/import','importt')->name('student.importt');
+    Route::post('/import','import')->name('student.impor');
+    Route::get('/student/export','export')->name('student.export');
 });
 require __DIR__.'/auth.php';
