@@ -10,7 +10,10 @@ use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
 use App\Exports\StudentExport;
 use App\Imports\StudentImport;
+use Dompdf\Dompdf;
 use Hekmatinasser\Verta\Verta;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use Mpdf\Mpdf;
 
 class StudentController extends Controller
 {
@@ -179,5 +182,8 @@ public function EditStudentModal(string $id){
         Excel::import(new StudentImport,$request->file('import_file'));
 
         return redirect('/')->with('success', 'All good!');
+    }
+    public function pdf(){
+        return Excel::download(new StudentExport, 'invoices.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     }
 }

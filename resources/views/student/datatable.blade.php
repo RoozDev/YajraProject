@@ -44,6 +44,7 @@
 @include('student.includes.show_modal_script')
 <a href="{{ route('student.importt') }}" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">Import</a>
 <a href="{{ route('student.export') }}" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">Download</a>
+<a href="{{ route('student.pdf') }}" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">Download Pdf</a>
     <table id="vazirFont" class="table table-bordered yajra-datatable">
         <thead>
         <tr>
