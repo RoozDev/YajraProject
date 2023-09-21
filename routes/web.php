@@ -34,6 +34,7 @@ Route::controller(StudentController::class)->group(function (){
     Route::get('/students/{id}','EditStudentModal')->name('students.modal.edit');
     Route::get('/student','getStudents')->name('student.index');
 
+
     Route::get('/student/create','create')->name('student.create');
     Route::post('/student/store','store')->name('student.store');
 
