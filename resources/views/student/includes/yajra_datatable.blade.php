@@ -5,6 +5,7 @@
         var table = $('.yajra-datatable').DataTable({
             processing: true,
             serverSide: true,
+
             "oLanguage": {
                 "sLengthMenu": " نمایش رکورد های _MENU_ در هر صفحه",
                 "sZeroRecords": "متاسفانه هیچ ریکوردی پیدا نشد !",
@@ -22,42 +23,23 @@
                 }
             },
             ajax: "{{ route('student.index') }}",
-            dom: 'Blfrtip',
+            ordering: false,
+            dom: 'Bfrtip',
+            "searching":true,
+            "paging":true,
+
             buttons: [
                 {
-                    extend: 'pdf',
-                    exportOptions: {
-                        columns: [1, 2, 3, 4, 5], // Column index which needs to export
-                        encoding: 'utf8', // Specify UTF-8 encoding
-                        customize: function (doc) {
-                            // Embed a custom Persian font for the PDF
-                            doc.content[1].table.widths = ['*', '*', '*', '*', '*', '*'];
-                            doc.content[1].table.body.forEach(function (row) {
-                                row.forEach(function (cell) {
-                                    cell.font = 'Tajik Nastaliq';
-                                });
-                            });
-
-                            // Set the direction to RTL
-                            doc.content[1].alignment = 'right'; // Right-to-left alignment
-                            doc.defaultStyle.alignment = 'right';
-
-                            // You can also specify other RTL-related settings as needed
-                            // For example, margin-right and margin-left adjustments
-                            // doc.pageMargins = [20, 20, 20, 20]; // Example margin adjustments
-                        }
-                    },
-
-                },
-                {
                     extend: 'csv',
-                    exportOptions: {
-                        columns: [0,5] // Column index which needs to export
-                    }
+                    text: 'CSV',
+                    charset: 'utf-8',
+                    extension: '.csv',
+                    fieldSeparator: '',
+                    fieldBoundary: ',',
+                    filename: 'export',
+                    bom: true
                 },
-                {
-                    extend: 'excel',
-                }
+                ['copy', 'excel', 'pdf', 'print']
             ],
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},

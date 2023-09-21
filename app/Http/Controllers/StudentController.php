@@ -2,18 +2,15 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
 use App\Exports\StudentExport;
 use App\Imports\StudentImport;
-use Dompdf\Dompdf;
-use Hekmatinasser\Verta\Verta;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use Mpdf\Mpdf;
+
 
 class StudentController extends Controller
 {
@@ -184,6 +181,14 @@ public function EditStudentModal(string $id){
         return redirect('/')->with('success', 'All good!');
     }
     public function pdf(){
-        return Excel::download(new StudentExport, 'invoices.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+        PDF::SetTitle('Hello World');
+        PDF::AddPage();
+        PDF::Write(0, 'Hello World');
+        PDF::Output('hello_world.pdf');
+//        $url = 'http://localhost:8000/students'; // Replace with your local web page URL
+//
+//        $pdf = PDF::loadView('student.datatable', compact('url'));
+//        return $pdf->stream('output.pdf');
+//        return Excel::download(new StudentExport, 'invoices.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     }
 }
