@@ -10,6 +10,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
 use App\Exports\StudentExport;
 use App\Imports\StudentImport;
+use Hekmatinasser\Jalali\Jalalian;
 
 
 class StudentController extends Controller
@@ -127,22 +128,38 @@ public function EditStudentModal(string $id){
         $student = Student::query()->where('id',$id)->first();
         return view('student.edit',compact('student'));
     }
-    public function update( Request $request){
-        $student = Student::query()->where('id',$request['student_id'])->first();
+
+
+
+
+
+    public function update(Request $request)
+    {
+        $student = Student::query()->where('id', $request['student_id'])->first();
         $student->name = $request['name'];
         $student->email = $request['email'];
         $student->username = $request['username'];
         $student->phone = $request['phone'];
         $student->dob = Carbon::create( $request['dob'],'Asia/Tehran')->format('Y-m-d');
-        $student->save();
-        $notification =
-            [
-                'message' => 'تغییرات با موفقیت ثبت شد',
-                'alert-type' => 'success'
 
-            ];
-        return to_route('students')->with($notification);
+        $student->save();
+
+        $notification = [
+            'message' => 'تغییرات با موفقیت ثبت شد',
+            'alert-type' => 'success'
+        ];
+
+        return redirect()->route('students')->with($notification);
     }
+
+
+
+
+
+
+
+
+
     public function destroy($id){
 
         $student = Student::query()->findOrFail($id);
@@ -179,16 +196,5 @@ public function EditStudentModal(string $id){
         Excel::import(new StudentImport,$request->file('import_file'));
 
         return redirect('/')->with('success', 'All good!');
-    }
-    public function pdf(){
-        PDF::SetTitle('Hello World');
-        PDF::AddPage();
-        PDF::Write(0, 'Hello World');
-        PDF::Output('hello_world.pdf');
-//        $url = 'http://localhost:8000/students'; // Replace with your local web page URL
-//
-//        $pdf = PDF::loadView('student.datatable', compact('url'));
-//        return $pdf->stream('output.pdf');
-//        return Excel::download(new StudentExport, 'invoices.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     }
 }

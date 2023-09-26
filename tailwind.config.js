@@ -9,6 +9,7 @@ export default {
         './resources/views/**/*.blade.php',
         './resources/js/**/*.vue',
         './resources/datatables/*.js',
+        './node_modules/persian-date/dist/persian-date.js',
 
     ],
 

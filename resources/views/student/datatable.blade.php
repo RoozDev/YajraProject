@@ -5,29 +5,51 @@
     <meta charset=utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-{{--   sweet alert --}}
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 {{--    <script src="{{ asset('backend/assets/js/code.js') }}"></script>--}}
-    @vite('resources/css/app.css')
-    <link rel="stylesheet" href="{{ asset('datatables/datatables.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('datatables/buttons.dataTable.min.css') }}">
+    {{--   sweet alert --}}
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
+    @vite('resources/css/app.css')
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <link rel="stylesheet" href="{{ asset('datatables/datatables.min.css') }}">
+
+
+    <link rel="stylesheet" href="{{ asset('datatables/buttons.dataTable.min.css') }}">
+
+
+
+
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css" integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous">
-{{--  datatable css --}}
 
     <!-- CSS -->
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"/>
-    <link href='https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css' rel='stylesheet' type='text/css'>
+
 
     <style>
         body {
             font-family: 'Vazir',sans-serif; /* Use 'Vazir' or your desired Persian font */
         }
+
+
     </style>
+
+    {{--  datepicker --}}
+    <link rel="stylesheet" href="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.css">
+    <script type="text/javascript" src="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.js"></script>
+
+{{-- datatable--}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"/>
+    <link href='https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css' rel='stylesheet' type='text/css'>
+
+
+
+    {{--   toastr  --}}
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
+
 
 </head>
 <body>
@@ -36,8 +58,7 @@
 
 
 
-{{-- create modal --}}
-@include('student.includes.create_student_modal')
+
 
 {{--  edit modal --}}
 @include('student.includes.edit_student_modal')
@@ -49,10 +70,12 @@
 @include('student.includes.show_student_modal')
 {{-- show modal script --}}
 @include('student.includes.show_modal_script')
-
+{{-- create modal --}}
+@include('student.includes.create_student_modal')
 <a href="{{ route('student.importt') }}" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">Import</a>
+
 <a href="{{ route('student.export') }}" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">Download</a>
-<a href="{{ route('student.pdf') }}" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">Download Pdf</a>
+
     <table id="vazirFont" class="table table-bordered yajra-datatable">
         <thead>
         <tr>
@@ -83,8 +106,8 @@
 {{-- delete sweet alert--}}
 @include('student.includes.sweet_alert_delete')
 
-
 <script src="{{ asset('datatables/datatables.min.js') }}"></script>
+
 <script type="text/javascript" src="{{ asset('datatables/datatables.buttons.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('datatables/buttons.flash.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('datatables/jszip.min.js') }}"></script>
@@ -92,6 +115,7 @@
 <script type="text/javascript" src="{{ asset('datatables/vfs_fonts.js') }}"></script>
 <script type="text/javascript" src="{{ asset('datatables/buttons.html5.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('datatables/buttons.print.min.js') }}"></script>
+
 
 
 

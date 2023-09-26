@@ -48,6 +48,5 @@ Route::controller(StudentController::class)->group(function (){
     Route::get('/student/import','importt')->name('student.importt');
     Route::post('/import','import')->name('student.impor');
     Route::get('/student/export','export')->name('student.export');
-    Route::get('/student/pdf','pdf')->name('student.pdf');
 });
 require __DIR__.'/auth.php';

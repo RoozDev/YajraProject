@@ -15,24 +15,33 @@
 
                         if (response && response.student) {
 
-                            let birthL = response.student.profile.birth_location;
-                            let fatherN = response.student.profile.father_name;
-                            let motherN = response.student.profile.mother_name;
                             let name = response.student.name;
                             let email = response.student.email;
                             let username = response.student.username;
                             let phone = response.student.phone;
                             let dob = response.student.dob;
+                            if ( response.student.profile){
+                                let birthL = response.student.profile.birth_location;
+                                let fatherN = response.student.profile.father_name;
+                                let motherN = response.student.profile.mother_name;
+                                $("#show_student_form input[name= 'birth_location']").val(birthL);
+                                $("#show_student_form input[name= 'father_name']").val(fatherN);
+                                $("#show_student_form input[name= 'mother_name']").val(motherN);
+                            }
+                            else {
+                                $("#show_student_form input[name= 'birth_location']").val('');
+                                $("#show_student_form input[name= 'father_name']").val('');
+                                $("#show_student_form input[name= 'mother_name']").val('');
+                            }
 
+                            // $('#birth_location').val(birthL);
+                            // $('#father_name').val(fatherN);
 
-                            $('#birth_location').val(birthL);
-                            $('#father_name').val(fatherN);
-                            $('#mother_name').val(motherN);
                             $("#show_student_form input[name='name']").val(name);
-                            $('#email_show').val(email);
-                            $('#username_show').val(username);
-                            $('#phone_show').val(phone);
-                            $('#dob_show').val(dob);
+                            $("#show_student_form input[name='email']").val(email);
+                            $("#show_student_form input[name='username']").val(username);
+                            $("#show_student_form input[name='phone']").val(phone);
+                            $("#show_student_form input[name='dob']").val(dob);
 
                         } else {
                             console.error("Invalid or missing student data in the response.");
